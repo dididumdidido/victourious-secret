@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anonymous Survey — Victourious Secret (VS)</title>
+<meta name="description" content="A short, anonymous survey for service members and veterans about harassment, sexual harassment, and assault. No name or email required.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<main id="main">
+<div class="wrap page-head">
+  <p class="eyebrow">Anonymous survey &middot; about 3 minutes</p>
+  <h1>Your experience counts.</h1>
+  <p>No name. No email. Answer only what you're comfortable with — every question is optional. Your answers help show that no one is alone in this, and help us build the resources people actually need.</p>
+</div>
+<div class="wrap" style="max-width:760px;padding-bottom:72px">
+  <div class="progress" aria-hidden="true"><span id="bar"></span></div>
+  <form class="js-form" data-form="survey" id="survey" data-hide-on-done=".step,.progress">
+    <input type="hidden" name="form" value="survey">
+    <input type="hidden" name="entry_answer" id="entry_answer">
+
+    <div class="step active">
+      <h2>Your service</h2>
+      <fieldset><legend>Your status</legend>
+        <label class="choice"><input type="radio" name="status" value="Active duty"> Active duty</label>
+        <label class="choice"><input type="radio" name="status" value="Guard / Reserve"> Guard / Reserve</label>
+        <label class="choice"><input type="radio" name="status" value="Veteran / separated"> Veteran / separated</label>
+        <label class="choice"><input type="radio" name="status" value="Family member"> Family member</label>
+        <label class="choice"><input type="radio" name="status" value="Prefer not to say"> Prefer not to say</label>
+      </fieldset>
+      <div class="field"><label for="branch">Branch <span class="hint">(optional)</span></label>
+        <select id="branch" name="branch"><option value="">Prefer not to say</option><option>Army</option><option>Navy</option><option>Air Force</option><option>Marine Corps</option><option>Space Force</option><option>Coast Guard</option><option>National Guard</option></select></div>
+      <div class="field"><label for="rank">Rank group at the time <span class="hint">(optional)</span></label>
+        <select id="rank" name="rank_group"><option value="">Prefer not to say</option><option>Junior enlisted (E1–E4)</option><option>NCO (E5–E6)</option><option>Senior NCO (E7–E9)</option><option>Warrant officer</option><option>Company-grade officer</option><option>Field-grade officer or above</option></select></div>
+    </div>
+
+    <div class="step">
+      <h2>What happened</h2>
+      <fieldset><legend>During your service, did you experience any of the following? <span class="hint">(check all that apply)</span></legend>
+        <label class="choice"><input type="checkbox" name="experienced" value="Harassment"> Harassment or hostile treatment</label>
+        <label class="choice"><input type="checkbox" name="experienced" value="Sexual harassment"> Sexual harassment</label>
+        <label class="choice"><input type="checkbox" name="experienced" value="Sexual assault"> Sexual assault</label>
+        <label class="choice"><input type="checkbox" name="experienced" value="Reprisal"> Reprisal or retaliation after reporting</label>
+        <label class="choice"><input type="checkbox" name="experienced" value="None"> None of these</label>
+      </fieldset>
+      <fieldset><legend>Where were you assigned at the time?</legend>
+        <label class="choice"><input type="radio" name="setting" value="Home station"> Home station</label>
+        <label class="choice"><input type="radio" name="setting" value="Deployed"> Deployed</label>
+        <label class="choice"><input type="radio" name="setting" value="Joint / NATO command"> Joint or NATO command</label>
+        <label class="choice"><input type="radio" name="setting" value="Training"> Training / schoolhouse</label>
+        <label class="choice"><input type="radio" name="setting" value="Prefer not to say"> Prefer not to say</label>
+      </fieldset>
+    </div>
+
+    <div class="step">
+      <h2>Getting help</h2>
+      <fieldset><legend>Did you report it?</legend>
+        <label class="choice"><input type="radio" name="reported" value="Yes - restricted"> Yes, restricted report</label>
+        <label class="choice"><input type="radio" name="reported" value="Yes - unrestricted"> Yes, unrestricted report</label>
+        <label class="choice"><input type="radio" name="reported" value="Yes - IG / EO"> Yes, to IG or EO</label>
+        <label class="choice"><input type="radio" name="reported" value="No"> No</label>
+        <label class="choice"><input type="radio" name="reported" value="Prefer not to say"> Prefer not to say</label>
+      </fieldset>
+      <fieldset><legend>Did leadership help you?</legend>
+        <label class="choice"><input type="radio" name="leadership_help" value="Yes"> Yes</label>
+        <label class="choice"><input type="radio" name="leadership_help" value="Somewhat"> Somewhat</label>
+        <label class="choice"><input type="radio" name="leadership_help" value="No"> No</label>
+        <label class="choice"><input type="radio" name="leadership_help" value="Made it worse"> It made things worse</label>
+      </fieldset>
+      <fieldset><legend>Did you have your own lawyer?</legend>
+        <label class="choice"><input type="radio" name="had_lawyer" value="Yes - military"> Yes, a military attorney (e.g. SVC/VLC)</label>
+        <label class="choice"><input type="radio" name="had_lawyer" value="Yes - civilian"> Yes, a civilian attorney</label>
+        <label class="choice"><input type="radio" name="had_lawyer" value="No - couldn't afford"> No — I couldn't afford one</label>
+        <label class="choice"><input type="radio" name="had_lawyer" value="No - didn't know how"> No — I didn't know where to start</label>
+        <label class="choice"><input type="radio" name="had_lawyer" value="No - other"> No — other reason</label>
+      </fieldset>
+    </div>
+
+    <div class="step">
+      <h2>What would help</h2>
+      <fieldset><legend>What kind of support would help most? <span class="hint">(check all that apply)</span></legend>
+        <label class="choice"><input type="checkbox" name="needs" value="Legal representation"> Legal representation</label>
+        <label class="choice"><input type="checkbox" name="needs" value="Counseling / therapy"> Counseling or therapy</label>
+        <label class="choice"><input type="checkbox" name="needs" value="Holistic / alternative care"> Holistic or alternative care</label>
+        <label class="choice"><input type="checkbox" name="needs" value="VA claim help"> Help with a VA claim</label>
+        <label class="choice"><input type="checkbox" name="needs" value="Community / peers"> Community with people who get it</label>
+        <label class="choice"><input type="checkbox" name="needs" value="Policy change"> Policy change</label>
+      </fieldset>
+      <div class="field"><label for="state">State you live in now <span class="hint">(optional — helps us find local providers)</span></label>
+        <select id="state" name="state"><option value="">Prefer not to say</option><option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option></select></div>
+      <div class="field"><label for="anything">Anything else you want us to know? <span class="hint">(optional — please don't include names or identifying details)</span></label>
+        <textarea id="anything" name="comments"></textarea></div>
+    </div>
+
+    <div class="step">
+      <h2>Unit climate <span class="tag">Optional</span></h2>
+      <p class="hint">Like the DEOCS, but outside the chain of command. Think of the unit where it happened (or your current unit). Skip any you like.</p>
+      <fieldset class="likert"><legend>I would feel safe reporting harassment or assault in my unit.</legend><div class="scale"><label><input type="radio" name="safe_reporting" value="1"><span>Strongly disagree</span></label><label><input type="radio" name="safe_reporting" value="2"><span>Disagree</span></label><label><input type="radio" name="safe_reporting" value="3"><span>Neutral</span></label><label><input type="radio" name="safe_reporting" value="4"><span>Agree</span></label><label><input type="radio" name="safe_reporting" value="5"><span>Strongly agree</span></label></div></fieldset>
+      <fieldset class="likert"><legend>I trust my chain of command to take reports seriously.</legend><div class="scale"><label><input type="radio" name="trust_command" value="1"><span>Strongly disagree</span></label><label><input type="radio" name="trust_command" value="2"><span>Disagree</span></label><label><input type="radio" name="trust_command" value="3"><span>Neutral</span></label><label><input type="radio" name="trust_command" value="4"><span>Agree</span></label><label><input type="radio" name="trust_command" value="5"><span>Strongly agree</span></label></div></fieldset>
+      <fieldset class="likert"><legend>People who report in my unit are protected from retaliation.</legend><div class="scale"><label><input type="radio" name="retaliation_protected" value="1"><span>Strongly disagree</span></label><label><input type="radio" name="retaliation_protected" value="2"><span>Disagree</span></label><label><input type="radio" name="retaliation_protected" value="3"><span>Neutral</span></label><label><input type="radio" name="retaliation_protected" value="4"><span>Agree</span></label><label><input type="radio" name="retaliation_protected" value="5"><span>Strongly agree</span></label></div></fieldset>
+      <fieldset class="likert"><legend>I know where to get help outside the military.</legend><div class="scale"><label><input type="radio" name="know_outside_help" value="1"><span>Strongly disagree</span></label><label><input type="radio" name="know_outside_help" value="2"><span>Disagree</span></label><label><input type="radio" name="know_outside_help" value="3"><span>Neutral</span></label><label><input type="radio" name="know_outside_help" value="4"><span>Agree</span></label><label><input type="radio" name="know_outside_help" value="5"><span>Strongly agree</span></label></div></fieldset>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn btn-ghost" id="prev" >Back</button>
+      <button type="button" class="btn btn-navy" id="next">Next</button>
+      <button type="submit" class="btn btn-gold" id="submit" style="display:none">Submit anonymously</button>
+    </div>
+  </form>
+  <div class="thanks card" data-for="survey" data-preview="">
+    <h2>Thank you. That took courage.</h2>
+    <p>That's a small victory — and it counts. You are not alone in this.</p>
+    <div class="optin">
+      <h3>Want to stay connected? <span class="tag">Optional</span></h3>
+      <p class="hint">This is a separate sign-up and is <strong>not linked to your survey answers</strong>. Skip it and your survey stays fully anonymous.</p>
+      <form class="js-form" data-form="newsletter" data-hide-on-done=".optin-fields">
+        <input type="hidden" name="source" value="survey-optin">
+        <div class="optin-fields">
+          <label class="choice"><input type="checkbox" name="interests" value="newsletter" checked> Monthly email — new resources and updates</label>
+          <label class="choice"><input type="checkbox" name="interests" value="community"> Invite me to the online community when it opens</label>
+          <label class="choice"><input type="checkbox" name="interests" value="events"> Tell me about meetups and events</label>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+            <input type="email" name="email" placeholder="Email (can be a private one)" aria-label="Email" required style="flex:1;min-width:220px">
+            <button class="btn btn-gold" type="submit">Keep me posted</button>
+          </div>
+        </div>
+        <p class="thanks">You're in. We'll be in touch about once a month.</p>
+      </form>
+    </div>
+    <div class="ctas" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px">
+      <a class="btn btn-navy" href="results.html">See what others shared</a>
+      <a class="btn btn-ghost" href="resources.html">Find help near you</a>
+    </div>
+  </div>
+</div>
+</div>
+</main>
+<script src="assets/main.js"></script>
+<script>
+(function(){
+  const steps=[...document.querySelectorAll(".step")],bar=document.getElementById("bar");
+  const prev=document.getElementById("prev"),next=document.getElementById("next"),sub=document.getElementById("submit");
+  let i=0;
+  const entry=new URLSearchParams(location.search).get("start");
+  if(entry) document.getElementById("entry_answer").value=entry;
+  function show(){
+    steps.forEach((s,k)=>s.classList.toggle("active",k===i));
+    bar.style.width=((i+1)/steps.length*100)+"%";
+    prev.style.visibility=i?"visible":"hidden";
+    next.style.display=i<steps.length-1?"":"none";
+    sub.style.display=i===steps.length-1?"":"none";
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+  prev.onclick=()=>{if(i>0){i--;show();}};
+  next.onclick=()=>{if(i<steps.length-1){i++;show();}};
+  document.getElementById("survey").addEventListener("vs:submitted",()=>{
+    document.querySelector(".form-actions").style.display="none";
+  });
+  show();
+})();
+</script>
+</body>
+</html>

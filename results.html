@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Survey Results — Victourious Secret (VS)</title>
+<meta name="description" content="What service members and veterans told us in the anonymous VS survey — in simple charts.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<main id="main">
+<div class="wrap page-head">
+  <p class="eyebrow">Survey results</p>
+  <h1>What people <em>told us.</em></h1>
+  <p>These are answers from our anonymous survey. No names. No emails. Just people sharing what happened — so the next person knows they're not alone.</p>
+</div>
+
+<div class="wrap" style="padding-bottom:80px">
+  <div id="sample-banner" class="note" hidden><strong>This is a preview with sample numbers.</strong> These are not real answers yet. Real results will show here once at least <span class="js-min"></span> people have taken the survey. <a href="survey.html">Be one of them &rarr;</a></div>
+  <div id="waiting" class="card" hidden style="text-align:center;padding:48px 24px">
+    <h2>We're still listening.</h2>
+    <p>We'll share results once <span class="js-min"></span> people have answered, so no one can be picked out. <strong class="js-left"></strong> to go.</p>
+    <a class="btn btn-gold" href="survey.html">Take the survey</a>
+  </div>
+
+  <div id="charts">
+    <section class="r-block">
+      <div class="r-total card">
+        <div><div class="big-stat js-total"></div><p class="r-total-label">people have shared so far</p></div>
+        <p class="hint">Every answer counts. Most people skipped at least one question — that's okay, all questions are optional. Percentages are out of the people who answered that question.</p>
+      </div>
+    </section>
+
+    <section class="r-block">
+      <h2>The big picture</h2>
+      <p class="r-sub">Out of every 10 people who answered&hellip;</p>
+      <div class="grid rings" id="rings"></div>
+    </section>
+
+    <section class="r-block card">
+      <h2>What happened to people</h2>
+      <p class="r-sub">People could pick more than one.</p>
+      <div class="stat-bars" id="bars-experienced"></div>
+      <details class="r-table"><summary>See the numbers</summary><div id="tbl-experienced"></div></details>
+    </section>
+
+    <section class="r-block card">
+      <h2>How safe do people feel?</h2>
+      <p class="r-sub">We asked people if they agree with each sentence.</p>
+      <div class="legend" aria-hidden="true">
+        <span><i style="background:var(--c-no)"></i>Disagree</span>
+        <span><i style="background:var(--c-mid)"></i>Not sure</span>
+        <span><i style="background:var(--c-yes)"></i>Agree</span>
+      </div>
+      <div id="climate"></div>
+      <details class="r-table"><summary>See the numbers</summary><div id="tbl-climate"></div></details>
+    </section>
+
+    <section class="r-block card">
+      <h2>What would help most</h2>
+      <p class="r-sub">People could pick more than one. This is what we're building next.</p>
+      <div class="stat-bars" id="bars-needs"></div>
+      <details class="r-table"><summary>See the numbers</summary><div id="tbl-needs"></div></details>
+    </section>
+  </div>
+
+  <div class="card r-cta">
+    <div><h2>Add your voice.</h2><p>Every answer makes this picture clearer — and harder to ignore.</p></div>
+    <div class="ctas" style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn btn-gold" href="survey.html">Take the survey</a><a class="btn btn-ghost" href="resources.html">Find help</a></div>
+  </div>
+  <p class="hint js-updated" style="margin-top:14px"></p>
+</div>
+<div id="tip" role="tooltip" hidden></div>
+</main>
+<script src="assets/main.js"></script>
+<script src="data/stats.js"></script>
+<script>
+(function(){
+  const S = window.STATS || {}, min = S.minResponses || 25;
+  document.querySelectorAll(".js-min").forEach(e => e.textContent = min);
+  if (!S.isSample && (S.total||0) < min) {
+    document.getElementById("charts").hidden = true;
+    const w = document.getElementById("waiting"); w.hidden = false;
+    const left = min - (S.total||0);
+    w.querySelector(".js-left").textContent = left + (left === 1 ? " more person" : " more people");
+    return;
+  }
+  if (S.isSample) {
+    document.getElementById("sample-banner").hidden = false;
+    document.querySelectorAll(".r-block.card, .r-total").forEach(c => c.classList.add("is-sample"));
+  }
+  if (S.updated) document.querySelector(".js-updated").textContent = "Last updated " + S.updated + ".";
+
+  const sum = o => Object.values(o).reduce((a,b) => a+b, 0);
+  const pct = (n,d) => d ? n/d : 0;
+  const P = x => Math.round(x*100) + "%";
+  const outOf10 = x => Math.round(x*10);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+  document.querySelector(".js-total").textContent = (S.total||0).toLocaleString();
+
+  /* ---------- rings ---------- */
+  const L = S.leadership_help.counts, W = S.had_lawyer.counts, R = S.reported.counts, E = S.experienced;
+  const rings = [
+    { p: pct(L["No"] + L["Made it worse"], sum(L)), n: L["No"] + L["Made it worse"], d: sum(L),
+      say: "said their leaders <b>did not help</b> — or made it worse." },
+    { p: pct(W["No - couldn't afford"] + W["No - didn't know how"] + W["No - other"], sum(W)),
+      n: W["No - couldn't afford"] + W["No - didn't know how"] + W["No - other"], d: sum(W),
+      say: "<b>did not have their own lawyer.</b>" },
+    { p: pct(R["No"], sum(R)), n: R["No"], d: sum(R),
+      say: "<b>never reported</b> what happened." },
+    { p: pct(E.counts["Reprisal"], E.answered), n: E.counts["Reprisal"], d: E.answered,
+      say: "faced <b>payback</b> for speaking up." }
+  ];
+  const C = 2*Math.PI*52;
+  document.getElementById("rings").innerHTML = rings.map(r => `
+    <figure class="ring card" data-tip="${r.n} of ${r.d} people (${P(r.p)})" tabindex="0">
+      <svg viewBox="0 0 128 128" role="img" aria-label="${outOf10(r.p)} out of 10">
+        <circle cx="64" cy="64" r="52" class="ring-track"/>
+        <circle cx="64" cy="64" r="52" class="ring-val" stroke-dasharray="0 ${C}" data-len="${(C*r.p).toFixed(1)}" data-c="${C.toFixed(1)}"/>
+        <text x="64" y="62" class="ring-big">${outOf10(r.p)}</text>
+        <text x="64" y="84" class="ring-small">out of 10</text>
+      </svg>
+      <figcaption>${r.say}</figcaption>
+    </figure>`).join("");
+
+  /* ---------- bars ---------- */
+  function bars(id, block, labels) {
+    const rows = Object.entries(block.counts)
+      .filter(([k]) => k !== "None")
+      .map(([k,v]) => ({ k: labels[k] || k, v, p: pct(v, block.answered) }))
+      .sort((a,b) => b.v - a.v);
+    document.getElementById("bars-"+id).innerHTML = rows.map(r => `
+      <div class="bar-row" data-tip="${r.v} of ${block.answered} people (${P(r.p)})" tabindex="0">
+        <span>${esc(r.k)}</span>
+        <div class="bar-track"><div class="bar-fill" data-w="${(r.p*100).toFixed(1)}"></div></div>
+        <b>${P(r.p)}</b>
+      </div>`).join("");
+    document.getElementById("tbl-"+id).innerHTML = table(["Answer","People","Percent"], rows.map(r => [r.k, r.v, P(r.p)]));
+  }
+  bars("experienced", S.experienced, {
+    "Harassment": "Harassment or bullying", "Sexual harassment": "Sexual harassment",
+    "Sexual assault": "Sexual assault", "Reprisal": "Payback for speaking up (reprisal)"
+  });
+  bars("needs", S.needs, {
+    "Legal representation": "A lawyer on their side", "Counseling / therapy": "Counseling or therapy",
+    "Holistic / alternative care": "Other kinds of healing care", "VA claim help": "Help with a VA claim",
+    "Community / peers": "People who get it", "Policy change": "Changing the rules"
+  });
+
+  /* ---------- climate split bars ---------- */
+  const Q = {
+    safe_reporting: "I'd feel safe reporting in my unit.",
+    trust_command: "I trust my leaders to take it seriously.",
+    retaliation_protected: "People who speak up are safe from payback.",
+    know_outside_help: "I know where to get help outside the military."
+  };
+  const climRows = Object.entries(S.climate).map(([k, c]) => {
+    const t = sum(c), no = c[1]+c[2], mid = c[3], yes = c[4]+c[5];
+    return { q: Q[k] || k, t, segs: [["no", no, "disagree"], ["mid", mid, "not sure"], ["yes", yes, "agree"]] };
+  });
+  document.getElementById("climate").innerHTML = climRows.map(r => `
+    <div class="split">
+      <p>${esc(r.q)}</p>
+      <div class="split-bar">${r.segs.map(([cls,n,word]) => {
+        const p = pct(n, r.t);
+        return p ? `<div class="seg seg-${cls}" style="flex:${n}" data-tip="${n} of ${r.t} people ${word} (${P(p)})" tabindex="0">${p >= .12 ? P(p) : ""}</div>` : "";
+      }).join("")}</div>
+    </div>`).join("");
+  document.getElementById("tbl-climate").innerHTML = table(["Sentence","Disagree","Not sure","Agree"],
+    climRows.map(r => [r.q, ...r.segs.map(([,n]) => `${n} (${P(pct(n,r.t))})`)]));
+
+  function table(head, rows) {
+    return `<table><thead><tr>${head.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${
+      rows.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+  }
+
+  /* ---------- animate in when visible ---------- */
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const grow = el => {
+    el.querySelectorAll(".bar-fill").forEach(b => b.style.width = b.dataset.w + "%");
+    el.querySelectorAll(".ring-val").forEach(c => c.setAttribute("stroke-dasharray", `${c.dataset.len} ${c.dataset.c}`));
+  };
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { grow(e.target); io.unobserve(e.target); } }), { threshold: .25 });
+  document.querySelectorAll("#rings, .stat-bars").forEach(el => still ? grow(el) : io.observe(el));
+
+  /* ---------- tooltip ---------- */
+  const tip = document.getElementById("tip");
+  const showTip = (el, x, y) => { tip.textContent = el.dataset.tip; tip.hidden = false;
+    tip.style.left = Math.min(x + 14, innerWidth - tip.offsetWidth - 10) + "px"; tip.style.top = (y + 16) + "px"; };
+  document.addEventListener("pointermove", e => {
+    const el = e.target.closest("[data-tip]");
+    if (el) showTip(el, e.clientX, e.clientY); else tip.hidden = true;
+  });
+  document.addEventListener("focusin", e => {
+    const el = e.target.closest("[data-tip]"); if (!el) return;
+    const r = el.getBoundingClientRect(); showTip(el, r.left, r.bottom - 10);
+  });
+  document.addEventListener("focusout", () => tip.hidden = true);
+})();
+</script>
+</body>
+</html>

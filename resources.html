@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Find Help — Victourious Secret (VS)</title>
+<meta name="description" content="Search lawyers, counselors, practitioners, and nonprofits that support service members and veterans affected by harassment or assault.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<main id="main">
+<div class="wrap page-head">
+  <p class="eyebrow">Resource directory</p>
+  <h1>Find help.</h1>
+  <p>Independent lawyers, counselors, medical and holistic practitioners, and nonprofits who support service members and veterans. National resources show up for every state.</p>
+</div>
+<div class="wrap" style="padding-bottom:72px">
+  <div class="filters">
+    <input id="q" type="search" placeholder="Search by name or keyword" aria-label="Search">
+    <select id="state" aria-label="State"><option value="">All states</option><option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option></select>
+    <select id="type" aria-label="Type of help"><option value="">All types of help</option><option>Legal</option><option>Counseling</option><option>Medical</option><option>Holistic</option><option>Nonprofit</option><option>Hotline</option><option>VA / Government</option></select>
+  </div>
+  <p id="count"></p>
+  <div id="list" class="grid g2"></div>
+  <div class="note"><strong>We're just getting started.</strong> The directory is growing as lawyers and practitioners join. Know someone who should be here? <a href="providers.html">Send them our provider application</a>.</div>
+  <p class="hint">Listings are informational and not an endorsement. Always confirm credentials, fees, and eligibility directly with the provider.</p>
+</div>
+</main>
+<script src="assets/main.js"></script>
+<script src="data/resources.js"></script>
+<script>
+(function(){
+  const list=document.getElementById("list"),count=document.getElementById("count");
+  const q=document.getElementById("q"),st=document.getElementById("state"),ty=document.getElementById("type");
+  const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  function render(){
+    const term=q.value.trim().toLowerCase(), s=st.value, t=ty.value;
+    const rows=(window.RESOURCES||[]).filter(r=>{
+      if(t&&r.type!==t) return false;
+      if(s&&r.state!==s&&r.state!=="National") return false;
+      if(term&&!(r.name+" "+r.description+" "+(r.tags||[]).join(" ")).toLowerCase().includes(term)) return false;
+      return true;
+    }).sort((a,b)=>(a.state==="National")-(b.state==="National")||a.name.localeCompare(b.name));
+    count.textContent=rows.length+" resource"+(rows.length===1?"":"s")+(s?" available in "+s:"");
+    list.innerHTML=rows.map(r=>`<article class="card res">
+      <span class="tag">${esc(r.type)}</span><span class="tag">${esc(r.state)}</span>
+      <h3>${esc(r.name)}</h3>
+      ${r.phone?`<p class="meta">${esc(r.phone)}</p>`:""}
+      <p>${esc(r.description)}</p>
+      ${(r.tags||[]).map(x=>`<span class="tag">${esc(x)}</span>`).join("")}
+      ${r.url?`<p style="margin-top:8px"><a class="link" href="${esc(r.url)}" target="_blank" rel="noopener">Visit website &rarr;</a></p>`:""}
+    </article>`).join("")||'<p>No matches yet. Try a different filter — or check back soon as the directory grows.</p>';
+  }
+  [q,st,ty].forEach(el=>el.addEventListener("input",render));
+  render();
+})();
+</script>
+</body>
+</html>
