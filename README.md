@@ -1,4 +1,4 @@
-# Victourious Secret (VS)
+# Victorious Secret (VS)
 
 Helping service members and veterans affected by harassment, sexual harassment, or assault **take back their power and find small victories on the road to healing.**
 
