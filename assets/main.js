@@ -5,7 +5,7 @@
    forms run in "preview mode" and nothing is sent anywhere.
    ============================================================ */
 const SITE = {
-  name: "Victourious Secret",
+  name: "Victorious Secret",
   shortName: "VS",
   tagline: "Take back your power. Find small victories on the road to healing.",
   contactEmail: "",            // e.g. "hello@yourdomain.org"
